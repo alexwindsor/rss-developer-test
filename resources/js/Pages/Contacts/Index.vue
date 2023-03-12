@@ -1,6 +1,8 @@
 <template>
     <Head title="Contacts" />
 
+<!--    <div v-for="contact in contacts">{{ contact.id }}</div>-->
+
     <BreezeAuthenticatedLayout>
         <div class="mx-auto my-6 max-w-screen-xl">
             <div class="my-3 flex justify-end">
@@ -27,12 +29,12 @@
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"></td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
+                                <tr v-for="contact in contacts">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ contact.first_name + ' ' + contact.last_name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ contact.email }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ contact.phone }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ contact.account.name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ contact.position }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <InertiaLink :href="route('contacts.show', contact.id)" class="cursor-pointer text-indigo-600 hover:text-indigo-900">View</InertiaLink>
                                     </td>
@@ -53,5 +55,5 @@
 <script setup>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { InertiaLink, Head } from '@inertiajs/inertia-vue3';
-
+defineProps({ contacts: Object });
 </script>
