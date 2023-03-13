@@ -162,8 +162,15 @@ class AccountControllerTest extends TestCase
     {
         $this->actingAs($this->user);
 
+//        I added the extra fields below as this test will fail unless all fields are present
         $this->put(route('accounts.update', $this->account->id), [
-            'name' => 'Test account'
+            'name' => 'Test account',
+            'owner_id' => $this->user->id,
+            'address' => 'Test address',
+            'town_city' => 'Test town',
+            'country' => 'Test country',
+            'post_code' => 'AB12 3CD',
+            'phone' => '0123456789'
         ])
             ->assertRedirect()
             ->assertSessionDoesntHaveErrors();

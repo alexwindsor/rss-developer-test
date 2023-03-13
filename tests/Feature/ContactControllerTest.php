@@ -155,7 +155,12 @@ class ContactControllerTest extends TestCase
         $this->actingAs($this->user);
 
         $this->put(route('contacts.update', $this->contact->id), [
-            'email' => 'test@test.com'
+            'first_name' => 'test first_name',
+            'last_name' => 'test last_name',
+            'account_id' => $this->contact->account_id,
+            'email' => 'test@test.com',
+            'phone' => 'test phone',
+            'position' => 'test position'
         ])
             ->assertRedirect()
             ->assertSessionDoesntHaveErrors();

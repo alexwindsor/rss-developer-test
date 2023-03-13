@@ -1,8 +1,6 @@
 <template>
     <Head :title="'Edit - ' + account.name" />
 
-    ??{{ errors }}
-
     <BreezeAuthenticatedLayout>
         <div class="max-w-screen-lg mx-auto my-6 space-y-6">
             <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -35,11 +33,11 @@
                                         class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     >
                                         <option
-                                            v-for="owner in owners"
-                                            :value="owner.id"
-                                            :selected="owner.id === auth_id"
+                                            v-for="user in users"
+                                            :value="user.id"
+                                            :selected="user.id == auth_id"
                                         >
-                                            {{ owner.name }}
+                                            {{ user.name }}
                                         </option>
                                     </select>
                                 </div>
@@ -117,7 +115,7 @@ import {Inertia} from "@inertiajs/inertia";
 
 const props = defineProps({
     account: Object,
-    owners: Object,
+    users: Object,
     auth_id: Number,
     errors: Object
 })
@@ -135,6 +133,6 @@ const form = reactive({
 
 
 let submit = () => {
-    Inertia.put('/accounts/' + props.auth_id, form);
+    Inertia.put('/accounts/' + props.account.id, form);
 };
 </script>

@@ -16,7 +16,7 @@
                             </div>
                             <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Owner</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ account.name }}</dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ owner.name }}</dd>
                             </div>
                             <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Phone</dt>
@@ -95,5 +95,5 @@
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { InertiaLink, Head } from '@inertiajs/inertia-vue3';
 
-defineProps({ account: Object, contacts: Object });
+defineProps({ account: Object, contacts: Object, owner: Array });
 </script>

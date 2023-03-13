@@ -21,20 +21,25 @@ class AccountController extends Controller
 
     public function show($id)
     {
-        $account = Account::find($id, ['id', 'name', 'address', 'town_city', 'country', 'post_code', 'phone']);
-        $contacts = Contact::where('account_id', $id)->get(['id', 'first_name', 'last_name', 'email', 'phone', 'position']);
+
+        $account = Account::with('owner')->find($id, ['id', 'owner_id', 'name', 'address', 'town_city', 'country', 'post_code', 'phone']);
+        $contacts = Contact::where('account_id', $id)->get(['id', 'account_id', 'first_name', 'last_name', 'email', 'phone', 'position']);
+
+        // this is just so it will pass the test
+        $owner = ['id' => $account->owner->id, 'name' => $account->owner->name];
 
         return Inertia::render('Accounts/Show', [
             'account' => $account,
-            'contacts' => $contacts
+            'contacts' => $contacts,
+            'owner' => $owner
         ]);
     }
 
     public function create()
     {
-        $owners = User::where('active', 1)->get(['id', 'name']);
+        $users = User::where('active', 1)->get(['id', 'name']);
         return Inertia::render('Accounts/Create', [
-            'owners' => $owners,
+            'users' => $users,
             'auth_id' => auth()->id()
         ]);
     }
@@ -57,10 +62,10 @@ class AccountController extends Controller
     public function edit($id)
     {
         $account = Account::find($id, ['id', 'owner_id', 'name', 'address', 'town_city', 'country', 'post_code', 'phone']);
-        $owners = User::where('active', 1)->get(['id', 'name']);
+        $users = User::where('active', 1)->get(['id', 'name']);
         return Inertia::render('Accounts/Edit', [
             'account' => $account,
-            'owners' => $owners,
+            'users' => $users,
             'auth_id' => auth()->id()
         ]);
     }
@@ -76,7 +81,12 @@ class AccountController extends Controller
             'town_city' => 'required',
             'post_code' => 'required'
         ]);
+//        print_r($new_account);
+//        echo '<br>' . $id . '<br>';
         Account::where('id', $id)->update($new_account);
+
+//        die();
+
         return redirect('/accounts');
     }
 

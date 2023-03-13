@@ -32,11 +32,11 @@
                                         class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     >
                                         <option
-                                            v-for="owner in owners"
-                                            :value="owner.id"
-                                            :selected="owner.id === auth_id"
+                                            v-for="user in users"
+                                            :value="user.id"
+                                            :selected="user.id === auth_id"
                                         >
-                                            {{ owner.name }}
+                                            {{ user.name }}
                                         </option>
                                     </select>
                                 </div>
@@ -110,7 +110,7 @@ import {reactive} from "vue";
 import {Inertia} from "@inertiajs/inertia";
 
 const props = defineProps({
-    owners: Object,
+    users: Object,
     auth_id: Number,
     errors: Object
 })

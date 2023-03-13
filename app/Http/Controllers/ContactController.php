@@ -26,10 +26,13 @@ class ContactController extends Controller
 
     public function show($id)
     {
-        $contact = Contact::with('account')->where('id', $id)->get(['id', 'account_id', 'first_name', 'last_name', 'email', 'phone', 'position']);
+        $contact = Contact::with('account')->where('id', $id)->first(['id', 'account_id', 'first_name', 'last_name', 'email', 'phone', 'position']);
+
+        $account = ['id' => $contact->account->id, 'name' => $contact->account->name];
 
         return Inertia::render('Contacts/Show', [
-            'contact' => $contact[0]
+            'contact' => $contact,
+            'account' => $account
         ]);
     }
 
